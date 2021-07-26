@@ -1,0 +1,183 @@
+{
+  "version" : 1,
+  "errors" : [ ],
+  "types" : [ {
+    "type" : "alias",
+    "alias" : {
+      "typeName" : {
+        "name" : "Airport",
+        "package" : "com.palantir.flightsearch"
+      },
+      "alias" : {
+        "type" : "primitive",
+        "primitive" : "STRING"
+      }
+    }
+  }, {
+    "type" : "object",
+    "object" : {
+      "typeName" : {
+        "name" : "Connection",
+        "package" : "com.palantir.flightsearch"
+      },
+      "fields" : [ {
+        "fieldName" : "from",
+        "type" : {
+          "type" : "reference",
+          "reference" : {
+            "name" : "Airport",
+            "package" : "com.palantir.flightsearch"
+          }
+        }
+      }, {
+        "fieldName" : "to",
+        "type" : {
+          "type" : "reference",
+          "reference" : {
+            "name" : "Airport",
+            "package" : "com.palantir.flightsearch"
+          }
+        }
+      }, {
+        "fieldName" : "number",
+        "type" : {
+          "type" : "primitive",
+          "primitive" : "STRING"
+        }
+      } ]
+    }
+  }, {
+    "type" : "object",
+    "object" : {
+      "typeName" : {
+        "name" : "SearchRequest",
+        "package" : "com.palantir.flightsearch"
+      },
+      "fields" : [ {
+        "fieldName" : "from",
+        "type" : {
+          "type" : "reference",
+          "reference" : {
+            "name" : "Airport",
+            "package" : "com.palantir.flightsearch"
+          }
+        }
+      }, {
+        "fieldName" : "to",
+        "type" : {
+          "type" : "reference",
+          "reference" : {
+            "name" : "Airport",
+            "package" : "com.palantir.flightsearch"
+          }
+        }
+      }, {
+        "fieldName" : "time",
+        "type" : {
+          "type" : "primitive",
+          "primitive" : "DATETIME"
+        }
+      } ]
+    }
+  }, {
+    "type" : "alias",
+    "alias" : {
+      "typeName" : {
+        "name" : "SearchResult",
+        "package" : "com.palantir.flightsearch"
+      },
+      "alias" : {
+        "type" : "list",
+        "list" : {
+          "itemType" : {
+            "type" : "reference",
+            "reference" : {
+              "name" : "Connection",
+              "package" : "com.palantir.flightsearch"
+            }
+          }
+        }
+      }
+    }
+  } ],
+  "services" : [ {
+    "serviceName" : {
+      "name" : "FlightSearchService",
+      "package" : "com.palantir.flightsearch"
+    },
+    "endpoints" : [ {
+      "endpointName" : "search",
+      "httpMethod" : "POST",
+      "httpPath" : "/flights/search",
+      "args" : [ {
+        "argName" : "request",
+        "type" : {
+          "type" : "reference",
+          "reference" : {
+            "name" : "SearchRequest",
+            "package" : "com.palantir.flightsearch"
+          }
+        },
+        "paramType" : {
+          "type" : "body",
+          "body" : { }
+        },
+        "markers" : [ ],
+        "tags" : [ ]
+      } ],
+      "returns" : {
+        "type" : "reference",
+        "reference" : {
+          "name" : "SearchResult",
+          "package" : "com.palantir.flightsearch"
+        }
+      },
+      "docs" : "Returns the list of flight connections matching a given from/to/time request.",
+      "markers" : [ ],
+      "tags" : [ ]
+    }, {
+      "endpointName" : "list",
+      "httpMethod" : "GET",
+      "httpPath" : "/flights/list/{airport}/{time}",
+      "args" : [ {
+        "argName" : "airport",
+        "type" : {
+          "type" : "reference",
+          "reference" : {
+            "name" : "Airport",
+            "package" : "com.palantir.flightsearch"
+          }
+        },
+        "paramType" : {
+          "type" : "path",
+          "path" : { }
+        },
+        "markers" : [ ],
+        "tags" : [ ]
+      }, {
+        "argName" : "time",
+        "type" : {
+          "type" : "primitive",
+          "primitive" : "DATETIME"
+        },
+        "paramType" : {
+          "type" : "path",
+          "path" : { }
+        },
+        "markers" : [ ],
+        "tags" : [ ]
+      } ],
+      "returns" : {
+        "type" : "reference",
+        "reference" : {
+          "name" : "SearchResult",
+          "package" : "com.palantir.flightsearch"
+        }
+      },
+      "docs" : "Returns flights departing from the given airport on the given day.",
+      "markers" : [ ],
+      "tags" : [ ]
+    } ]
+  } ],
+  "extensions" : { }
+}
